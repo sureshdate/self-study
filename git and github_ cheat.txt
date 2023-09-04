@@ -1,0 +1,370 @@
+
+
+
+
+
+Note:-all concept write in notes format in book.
+
+Git and Github 
+
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config --global user.name "sureshdate"
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config --global user.email "sureshdat@cybage.com"
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config user.email
+sureshdat@cybage.com
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config user.name
+sureshdate
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config --global --edit
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ git config --global --edit
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ mkdir practice
+
+sureshdat@Sureshdat-VD MINGW64 ~
+$ cd practice
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git init
+Initialized empty Git repository in C:/Users/sureshdat/Desktop/learn git/.git/
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git add sum.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   sum.java
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        diff.java
+
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git commit -m "sum.java added"
+[master (root-commit) b4760ce] sum.java added
+ 1 file changed, 8 insertions(+)
+ create mode 100644 sum.java
+g
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git add diff.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git commit -m "diff.java file added"
+[master 35914bd] diff.java file added
+ 1 file changed, 3 insertions(+)
+ create mode 100644 diff.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git log
+commit 35914bde6d0497b4c04f0917785ca4b41d781eb0 (HEAD -> master)
+Author: sureshdat <sureshdat@cybage.com>
+Date:   Fri Dec 2 15:05:42 2022 +0530
+
+    diff.java file added
+
+commit b4760ce9c2818202746c2ec90489e98dc0fd91a1
+Author: sureshdat <sureshdat@cybage.com>
+Date:   Fri Dec 2 15:05:05 2022 +0530
+
+    sum.java added
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git branch div
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git checkout div
+Switched to branch 'div'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git branch
+* div
+  master
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git checkout master
+Switched to branch 'master'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git checkout div
+Switched to branch 'div'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git add multi.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git commit -m "multi.java added"
+[div 29dadba] multi.java added
+ 1 file changed, 8 insertions(+)
+ create mode 100644 multi.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git checkout master
+Switched to branch 'master'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git checkout div
+Switched to branch 'div'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git merge master
+Already up to date.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ touch .gitignore
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git status
+On branch div
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        secretkey.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git status
+On branch div
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git status
+On branch div
+nothing to commit, working tree clean
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git l;og
+git: 'l' is not a git command. See 'git --help'.
+
+The most similar commands are
+        log
+        lfs
+bash: og: command not found
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ \git log
+commit c386f9093f72ac47ef0ad47cb72b32a70d85a672 (HEAD -> div)
+Author: sureshdat <sureshdat@cybage.com>
+Date:   Fri Dec 2 15:57:12 2022 +0530
+
+    muulti.java file added
+
+commit 35914bde6d0497b4c04f0917785ca4b41d781eb0 (master, main)
+Author: sureshdat <sureshdat@cybage.com>
+Date:   Fri Dec 2 15:05:42 2022 +0530
+
+    diff.java file added
+
+commit b4760ce9c2818202746c2ec90489e98dc0fd91a1
+Author: sureshdat <sureshdat@cybage.com>
+Date:   Fri Dec 2 15:05:05 2022 +0530
+
+    sum.java added
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git checkout master
+Switched to branch 'master'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git merge div
+Updating 35914bd..c386f90
+Fast-forward
+ multi.java | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+ create mode 100644 multi.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote -v
+origin  git@github.com:sureshdat/lets-learn-git.git (fetch)
+origin  git@github.com:sureshdat/lets-learn-git.git (push)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote add origin git@github.com:sureshdat/learn-git.git
+fatal: remote origin already exists.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ fatal: remote origin already exists.
+bash: fatal:: command not found
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ fatal: remote origin already exists.
+bash: fatal:: command not found
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git branch -M main
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (main)
+$ git branch -M master
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ remote -v
+bash: remote: command not found
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote -v
+origin  git@github.com:sureshdat/lets-learn-git.git (fetch)
+origin  git@github.com:sureshdat/lets-learn-git.git (push)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git push -u origin master
+ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ ^C
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote -v
+origin  git@github.com:sureshdat/lets-learn-git.git (fetch)
+origin  git@github.com:sureshdat/lets-learn-git.git (push)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote set-url origin https://github.com/sureshdat/learn-git.git
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git remote set-url origin https://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@github.com/sureshdat/learn-git.git
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git push -u origin master
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (9/9), 900 bytes | 300.00 KiB/s, done.
+Total 9 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/sureshdat/learn-git.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git add diff.java
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git commit -m "modifcation update in diff.java"
+[master db0dec0] modifcation update in diff.java
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 375 bytes | 375.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/sureshdat/learn-git.git
+   c386f90..db0dec0  master -> master
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (master)
+$ git checkout div
+Switched to branch 'div'
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git push -u origin div
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'div' on GitHub by visiting:
+remote:      https://github.com/sureshdat/learn-git/pull/new/div
+remote:
+To https://github.com/sureshdat/learn-git.git
+ * [new branch]      div -> div
+Branch 'div' set up to track remote branch 'div' from 'origin'.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git clone https://github.com/sureshdat/JQUERY-ASSIGNMENT.git
+Cloning into 'JQUERY-ASSIGNMENT'...
+remote: Enumerating objects: 2480, done.
+remote: Counting objects: 100% (2480/2480), done.
+remote: Compressing objects: 100% (1839/1839), done.
+remote: Total 2480 (delta 533), reused 2480 (delta 533), pack-reused 0
+Receiving objects: 100% (2480/2480), 1.81 MiB | 10.37 MiB/s, done.
+Resolving deltas: 100% (533/533), done.
+Updating files: 100% (2323/2323), done.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git add .
+warning: adding embedded git repository: JQUERY-ASSIGNMENT
+hint: You've added another git repository inside your current repository.
+hint: Clones of the outer repository will not contain the contents of
+hint: the embedded repository and will not know how to obtain it.
+hint: If you meant to add a submodule, use:
+hint:
+hint:   git submodule add <url> JQUERY-ASSIGNMENT
+hint:
+hint: If you added this path by mistake, you can remove it from the
+hint: index with:
+hint:
+hint:   git rm --cached JQUERY-ASSIGNMENT
+hint:
+hint: See "git help submodule" for more information.
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git commit -m "all files added in div branch"
+[div b5af15b] all files added in div branch
+ 1 file changed, 1 insertion(+)
+ create mode 160000 JQUERY-ASSIGNMENT
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ gi status
+bash: gi: command not found
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git status
+On branch div
+Your branch is ahead of 'origin/div' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+sureshdat@Sureshdat-VD MINGW64 ~/Desktop/learn git (div)
+$ git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 345 bytes | 345.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0)
+To https://github.com/sureshdat/learn-git.git
+c386f90..b5af15b  div -> div
+
+
+
+
+
+
