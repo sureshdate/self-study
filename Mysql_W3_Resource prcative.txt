@@ -1,0 +1,1085 @@
+create table questions upto 15
+Enter password: ****************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.25 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use india;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table if not exists countries(country_id int not null, Country_name varchar(20)not null,region_id int not null);
+Query OK, 0 rows affected (1.53 sec)
+
+mysql> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   |     | NULL    |       |
+| Country_name | varchar(20) | NO   |     | NULL    |       |
+| region_id    | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.09 sec)
+
+mysql> create table if not exists dup_countries like countries;
+Query OK, 0 rows affected (0.61 sec)
+
+mysql> desc dup countries;
+ERROR 1146 (42S02): Table 'india.dup' doesn't exist
+mysql> desc dup_countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   |     | NULL    |       |
+| Country_name | varchar(20) | NO   |     | NULL    |       |
+| region_id    | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table if not exists job(job_id int,job_title varchar(20),min_salary int(40),max_salary int(40),check max_salary<=25000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'max_salary<=25000)' at line 1
+mysql> create table if not exists job(job_id int,job_title varchar(20),min_salary int(40),max_salary int(40) check max_salary<=25000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'max_salary<=25000)' at line 1
+mysql> create table if not exists job(job_id int,job_title varchar(20),min_salary decimal(6,0),max_salary decimal(6,0) check (max_salary<=25000));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> create table countries(country_id int,country_name varchar(20),region_id int(20),check(country_name in("italy","india","china")));
+ERROR 1050 (42S01): Table 'countries' already exists
+mysql> create table country(country_id int,country_name varchar(20),region_id int(20),check(country_name in("italy","india","china")));
+Query OK, 0 rows affected, 1 warning (1.58 sec)
+
+mysql> create table job_history(employee_id int,start_date not null,end_date not null check(end_date like '__/__/____')job_id int not null,department_id int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,end_date not null check(end_date like '__/__/____')job_id int not null,' at line 1
+mysql> create table job_history(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____')job_id int not null,department_id int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'job_id int not null,department_id int not null)' at line 1
+mysql> create table job_history(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null);
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> create table countries1(country_id int not null unique,country_name varchar(20),region_id int(20));
+Query OK, 0 rows affected, 1 warning (0.77 sec)
+
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| job_id     | int          | YES  |     | NULL    |       |
+| job_title  | varchar(20)  | YES  |     | NULL    |       |
+| min_salary | decimal(6,0) | YES  |     | NULL    |       |
+| max_salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.10 sec)
+
+mysql> create table if not exists job1(job_id int,job_title varchar(20) null,min_salary int(40)default 8000,max_salary int(40) null);
+Query OK, 0 rows affected, 2 warnings (0.89 sec)
+
+mysql> desc job1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | YES  |     | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | 8000    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.23 sec)
+
+mysql> create table countries2(country_id int not null unique auto increment primary key,country_name varchar(20),region_id int(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto increment primary key,country_name varchar(20),region_id int(20))' at line 1
+mysql> create table countries2(country_id int not null unique auto_increment primary key,country_name varchar(20),region_id int(20));
+Query OK, 0 rows affected, 1 warning (1.20 sec)
+
+mysql> create table countrie3(country_id int not null,country_name varchar(20),region_id int(20),unique(country_id,region_id));
+Query OK, 0 rows affected, 1 warning (1.16 sec)
+
+mysql> create table job_history(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job(job_id));
+ERROR 1050 (42S01): Table 'job_history' already exists
+mysql> create table job_history1(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job(job_id));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'job_history1_ibfk_1' in the referenced table 'job'
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| job_id     | int          | YES  |     | NULL    |       |
+| job_title  | varchar(20)  | YES  |     | NULL    |       |
+| min_salary | decimal(6,0) | YES  |     | NULL    |       |
+| max_salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> create table job_history1(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job(job_id));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'job_history1_ibfk_1' in the referenced table 'job'
+mysql> desc job1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | YES  |     | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | 8000    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc job2;
+ERROR 1146 (42S02): Table 'india.job2' doesn't exist
+mysql> desc job1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | YES  |     | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | 8000    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table job_history1(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job1(job_id));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'job_history1_ibfk_1' in the referenced table 'job1'
+mysql> create table job_history1(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job1(job_id)) engine=InnoDB;
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'job_history1_ibfk_1' in the referenced table 'job1'
+mysql> alter table job1 change column job_id job_id int primary key;
+Query OK, 0 rows affected (1.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table job_history1(employee_id int,start_date int not null,end_date int not null check(end_date like '__/__/____'),job_id int not null,department_id int not null,foreign key(job_id) references job1(job_id));
+Query OK, 0 rows affected (1.70 sec)
+
+mysql> desc job1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | 8000    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> desc job_history1;
++---------------+------+------+-----+---------+-------+
+| Field         | Type | Null | Key | Default | Extra |
++---------------+------+------+-----+---------+-------+
+| employee_id   | int  | YES  |     | NULL    |       |
+| start_date    | int  | NO   |     | NULL    |       |
+| end_date      | int  | NO   |     | NULL    |       |
+| job_id        | int  | NO   | MUL | NULL    |       |
+| department_id | int  | NO   |     | NULL    |       |
++---------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table department(deptid_id int not null unique primary key,deptname varchar(30,manager_id int not null unique primary key,location id int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',manager_id int not null unique primary key,location id int not null)' at line 1
+mysql> create table department(deptid_id int not null unique primary key,deptname varchar(30),manager_id int not null unique primary key,location id int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int not null)' at line 1
+mysql> create table department(deptid_id int not null unique primary key,deptname varchar(30),manager_id int not null unique primary key,location_id int not null);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> create table department(deptid_id int not null unique,deptname varchar(30),manager_id int not null unique,location_id int not null,primary key("dept_id","manager_id"));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"dept_id","manager_id"))' at line 1
+mysql> create table department(deptid_id int not null unique,deptname varchar(30),manager_id int not null unique,location_id int not null primary key("dept_id","manager_id"));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '("dept_id","manager_id"))' at line 1
+mysql> create table department(deptid_id int not null unique,deptname varchar(30),manager_id int not null unique,location_id int not null,primary key(dept_id,manager_id));
+ERROR 1072 (42000): Key column 'dept_id' doesn't exist in table
+mysql> create table department(dept_id int not null unique,deptname varchar(30),manager_id int not null unique,location_id int not null,primary key(dept_id,manager_id));
+Query OK, 0 rows affected (1.44 sec)
+
+2)insert into statement
+
+Enter password: ****************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.25 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use india;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| countrie3       |
+| countries       |
+| countries1      |
+| countries2      |
+| country         |
+| department      |
+| dup_countries   |
+| job             |
+| job1            |
+| job_history     |
+| job_history1    |
++-----------------+
+11 rows in set (0.29 sec)
+
+mysql> desc country;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | YES  |     | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.26 sec)
+
+mysql> desc countries1;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   | PRI | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc countries2;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| country_id   | int         | NO   | PRI | NULL    | auto_increment |
+| country_name | varchar(20) | YES  |     | NULL    |                |
+| region_id    | int         | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc countries3;
+ERROR 1146 (42S02): Table 'india.countries3' doesn't exist
+mysql> alter table countrie3 rename to countries3;
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> desc countries3;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   | MUL | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | NO   |     | NULL    |       |
+| Country_name | varchar(20) | NO   |     | NULL    |       |
+| region_id    | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> drop countries;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'countries' at line 1
+mysql> drop table countries;
+Query OK, 0 rows affected (1.18 sec)
+
+mysql> insert into country values(1,"india",2);
+Query OK, 1 row affected (0.28 sec)
+
+mysql> insert into country("country_id","country_name") values(2,"chaina");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"country_id","country_name") values(2,"chaina")' at line 1
+mysql> insert into country(country_id,country_name) values(2,"chaina");
+ERROR 3819 (HY000): Check constraint 'country_chk_1' is violated.
+mysql> insert into country(country_id,country_name) values(2,"bangladesh");
+ERROR 3819 (HY000): Check constraint 'country_chk_1' is violated.
+mysql> insert into country(country_id,country_name) values(2,"italy");
+Query OK, 1 row affected (0.15 sec)
+
+mysql> desc country;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | YES  |     | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.11 sec)
+
+mysql> select * from country;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|          1 | india        |         2 |
+|          2 | italy        |      NULL |
++------------+--------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> craete table countries_new like country;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'craete table countries_new like country' at line 1
+mysql> create table countries_new like country;
+Query OK, 0 rows affected (1.31 sec)
+
+mysql> insert into country values("3","india","2"),("4","usa","4"),("5","uk","6");
+ERROR 3819 (HY000): Check constraint 'country_chk_1' is violated.
+mysql> insert into countries_new values("3","india","2"),("4","usa","4"),("5","uk","6");
+ERROR 3819 (HY000): Check constraint 'countries_new_chk_1' is violated.
+mysql> select * from countries_new;
+Empty set (0.00 sec)
+
+mysql> select * from country;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|          1 | india        |         2 |
+|          2 | italy        |      NULL |
++------------+--------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into countries_new (select * from country);
+Query OK, 2 rows affected (0.14 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from job;
+Empty set (0.15 sec)
+
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| job_id     | int          | YES  |     | NULL    |       |
+| job_title  | varchar(20)  | YES  |     | NULL    |       |
+| min_salary | decimal(6,0) | YES  |     | NULL    |       |
+| max_salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.14 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| countries1      |
+| countries2      |
+| countries3      |
+| countries_new   |
+| country         |
+| department      |
+| dup_countries   |
+| job             |
+| job1            |
+| job_history     |
+| job_history1    |
++-----------------+
+11 rows in set (0.00 sec)
+
+mysql> desc job1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | 8000    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> insert into job1("1","engineer",,15000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"1","engineer",,15000)' at line 1
+mysql> insert into job1("1","engineer",9000,15000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"1","engineer",9000,15000)' at line 1
+mysql> insert into job1("1","engineer",8000,15000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"1","engineer",8000,15000)' at line 1
+mysql> insert into job1 values("1","engineer",9000,15000);
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into job1 values("1","software_engineer",8500,20000);
+ERROR 1062 (23000): Duplicate entry '1' for key 'job1.PRIMARY'
+
+
+3)update table statement
+1)update employee set email=""not available;
+2)update employee set emial="not available",commision_pct=0.10;
+3)update employee set email="not available",commision_pct=0.10 where department_id=110;
+4)update employee set email="not available" where department_id=80 and commission_pct<.20;
+5)update employee set email="not avilable" where department=""accounting;
+6)update employee set salary=8000 where employee_id=105 and salary<5000;
+7)update employee set job_id="sh_cleark" where employee_id=118 department_id=30 and not job_id like"sh%";
+8)update employee set salary= case department_id 
+when 40 then salary+(salary*0.25) 
+when 90 then salary+(salary*0.15)
+when 110 then salary+(salary*0.10)
+else salary
+end
+where department_id in(40,50,60,70,80,90,110);
+9)confused
+
+4)alter table statement
+ Enter password: ****************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.25 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use india;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| countries1      |
+| countries2      |
+| countries3      |
+| countries_new   |
+| country         |
+| department      |
+| dup_countries   |
+| job             |
+| job1            |
+| job_history     |
+| job_history1    |
++-----------------+
+11 rows in set (0.06 sec)
+
+mysql> drop table coutries1,countries2,countries3;
+ERROR 1051 (42S02): Unknown table 'india.coutries1'
+mysql> drop table countries2,countries3;
+Query OK, 0 rows affected (1.59 sec)
+
+mysql> drop table countries1;
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> drop table countries_new;
+Query OK, 0 rows affected (0.72 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| country         |
+| department      |
+| dup_countries   |
+| job             |
+| job1            |
+| job_history     |
+| job_history1    |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> drop table job1;job_history1;
+ERROR 3730 (HY000): Cannot drop table 'job1' referenced by a foreign key constraint 'job_history1_ibfk_1' on table 'job_history1'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'job_history1' at line 1
+mysql> drop table job1,job_history1;
+Query OK, 0 rows affected (1.03 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| country         |
+| department      |
+| dup_countries   |
+| job             |
+| job_history     |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table country rename country_new;
+Query OK, 0 rows affected (0.68 sec)
+
+mysql> desc country;
+ERROR 1146 (42S02): Table 'india.country' doesn't exist
+mysql> desc country_new;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int         | YES  |     | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.19 sec)
+
+mysql> create table locations(location_id int,street_address varchar(20),postal_code varchar(20),city varchar(20),state_province varchar(25),country_id int);
+Query OK, 0 rows affected (1.39 sec)
+
+mysql> desc locations;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| location_id    | int         | YES  |     | NULL    |       |
+| street_address | varchar(20) | YES  |     | NULL    |       |
+| postal_code    | varchar(20) | YES  |     | NULL    |       |
+| city           | varchar(20) | YES  |     | NULL    |       |
+| state_province | varchar(25) | YES  |     | NULL    |       |
+| country_id     | int         | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table locations add column region_id int;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table location add column columns_id int before location_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'before location_id' at line 1
+mysql> alter table location add column columns_id int first;
+ERROR 1146 (42S02): Table 'india.location' doesn't exist
+mysql> alter table locations add column columns_id int first;
+Query OK, 0 rows affected (2.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations drop column region_id;
+Query OK, 0 rows affected (1.91 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations add column region_id int after state_province;
+Query OK, 0 rows affected (0.77 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations change coutry_id country_id decimal(6,0);
+ERROR 1054 (42S22): Unknown column 'coutry_id' in 'locations'
+mysql> alter table locations change country_id country_id decimal(6,0);
+Query OK, 0 rows affected (2.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations drop column city;
+Query OK, 0 rows affected (2.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations rename column state_provience to state;
+ERROR 1054 (42S22): Unknown column 'state_provience' in 'locations'
+mysql> alter table locations rename column state_province to state;
+Query OK, 0 rows affected (0.42 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table locations change location_id to location_id int not null unique primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to location_id int not null unique primary key' at line 1
+mysql> alter table locations change location_id location_id int not null unique primary key;
+Query OK, 0 rows affected (1.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| columns_id     | int          | YES  |     | NULL    |       |
+| location_id    | int          | NO   | PRI | NULL    |       |
+| street_address | varchar(20)  | YES  |     | NULL    |       |
+| postal_code    | varchar(20)  | YES  |     | NULL    |       |
+| state          | varchar(25)  | YES  |     | NULL    |       |
+| region_id      | int          | YES  |     | NULL    |       |
+| country_id     | decimal(6,0) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+7 rows in set (0.12 sec)
+
+mysql> alter table locations add primary key(region_id,country_id);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> alter table locations add primary key("region_id","country_id");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"region_id","country_id")' at line 1
+mysql> alter table locations add primary key(region_id,country_id);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> alter table locations drop primary key;
+Query OK, 0 rows affected (2.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table job_history add foreign key(job_id) references jobs(job_id);
+ERROR 1824 (HY000): Failed to open the referenced table 'jobs'
+mysql> show tables;
++-----------------+
+| Tables_in_india |
++-----------------+
+| country_new     |
+| department      |
+| dup_countries   |
+| job             |
+| job_history     |
+| locations       |
++-----------------+
+6 rows in set (0.01 sec)
+
+mysql> alter table job_history add foreign key(job_id) references job(job_id);
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'job_history_ibfk_1' in the referenced table 'job'
+mysql> desc job;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| job_id     | int          | YES  |     | NULL    |       |
+| job_title  | varchar(20)  | YES  |     | NULL    |       |
+| min_salary | decimal(6,0) | YES  |     | NULL    |       |
+| max_salary | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.10 sec)
+11) alter table job_history add foreign key(job_id) references job(job_id);
+12)
+13)
+14)alter table job_history add index indx_job_id(job_id);
+15)alter table job_history drop index indx_job_id;
+
+5)basic select statement
+1)select first_name as FIRST NAME,last_name as LAST NAME from employees;
+2)select distinct(department_id) from employees;
+3)select * from employees order by first_name desc;
+4)select first_name,last_name,salary,salary*0.15 as PF from employees;
+5)select employee_id,first_name,last_name,salary from employees order by salary;
+6)select sum(salary)from employees;
+7)select max(salary),min(salary) from employee;
+8)select avg(salary),,count(*)from employees;
+9)select count(*)from employees;
+10)select count(distinct job_id)from employees;
+11)select upper(first_name)from employees;
+12)select substring(first_name,1,3)from employees;
+13)select 171*214+625 from employees;
+14)select concat(first_name,'',last_name) as employee name from employees;
+15)select trim(first_name) from employees;
+16)select first_name,last_name,length(first_name)+length(last_name) as "length of name" from employees;
+17)select * from employees where first_name regexp '[0-9]';
+18)select * frome employees limit(0,10);
+19)selectfirst_name,last_name,round(salary/12,2) as "monthly salary" from employees;
+
+6)restricting and sorting data
+1)select first_name,last_name,salary from employees where salary not in(10000,15000); or salary not between 10000 and 15000
+2)select first_name,last_name,department_id from employees where departmen_id in(30,100) order by department_id asc;
+3)select first_name,last_name,salary from employees where salary not between 10000 and 15000 and department_id in(30,100);
+4)select first_name,last_name,hired_date from employees where year(hire_date) like '1987%';
+5)select firt_name from employees where first_name like '%b%' and first_name like '%c%';
+6)select last_name,job,salary from employees where job_id in("IT_PROG","SH_CLERK") AND salary not in(4500,10000,15000);
+7)select last_name from employees where last_name like '______';
+8)select last_name from employees where last_name like '__e%';
+9)select distinct(job_id) from employees;
+10)select first_name,last_name,salary,salary*0.15 as PF from employees;
+11)select last_name from employess where last_name in("BLAKE","SCOTT","KING","FORD");
+
+
+7)MYSQL Agrregate function
+1)select count(distinct job_id) from employees;
+2)select sum(salary) from employees;
+3)select min(salary) from employee;
+4)select max(salary) from employee where job_id="programmer";
+5)select avg(salary),count(*) from employee where department_id=90; 
+6)select max(salary) as "maximum",min(salary) as "minimum",sum(salary) as "sum",avg(salary) as "avg_salary" from employees;
+7)select count(*),job_id from employess group by job_id;
+8)select max(salary) - min(salary) as "difference" from employee;
+9)select min(salary),manager_id from  employess group by manager_id order by min(salary) desc;
+10)select department_id,sum(salary) from employees group by department_id;
+11)select avg(salary),job_id from employees where job_id<>"programmer" group by job_id; (<> =this sign indicates notin or excluding programmer)
+14)select department_id,avg(salary),count(*) from employees group by department_id having count(*)>10;
+
+8)sub-query 
+1)select first_name,last_name,salary from employees where salay>(select salary from employees where last name="bull");
+2)select department_id from department where department_name="it"; OR select first_name,last_name from employees where department_id in(select department_id from departments where department_name="it");
+3)select first_name,last_name from employees where manager_id in(select employee_id from employees where department_id in(select department_id from departments where location_id in(select location_id from employees where country_id="US")));
+4)select first_name,last_name from employees where (employee_id in(select manager_id from employees));
+5)select first_name,last_name,salary from employees where salary>(select avg(salary) from employee);
+6)select first_name,last_name,salary from employees where employees.salary =(select min_salary from jobs where employees.job_id=jobs.job_id);
+7)select first_name,last_name,salary from employees where department_id in(select department_id from departments where department_name like "it%") and salary>(select avg(salary) from employees);
+8)select first_name,last_name,salary from employees where salary>(select salary from employees where last_name="bell")order by first_name;
+9)select first_nme,last_name,salary from employees where salary=(select min(salary) from employees);
+10)select first_nme,last_name,salary from employees where salary>(select avg(salary) from employees group by department_id);
+11)select first_name,last_name,salary from employees where salary>(select salary from employees where job_id="sh_cleark") order by salary;
+13)select employee_id,first_name,last_name(select department_name from deprtment d where e.department_id=d.department_id) department from employees e order by department;
+14)select employee_id,first_name from employees as "A" where salary>(select avg(salary) from employees where department_id=A.department_id);
+15)confused even no record
+16)select max_salary from employees order by salary desc limit 5 offset 4;
+17)done
+18)select * from employee(select * from employees order by employee_id desc limit 10)sub order by employee_id asc;
+19)select * from departments where department_id not in(select department_id from employees);
+20)done
+21)done
+
+9)joins
+1)select location_id,street_address,city_state_provience,country_name from locations natural join countries;
+2)select first_name,last_name,department_id,department_name from employees join departments using(department_name);
+3)select e.first_name,e.last_name,e.job_id,e.department_id,d.department_name from employee e join department d on(e.department_id=d.department_id) join locations l on(d.location_id=l.location_id where l.city="london");
+4)select e.employee_id "emp_id",e.last_name "employee",m.employee_id "mgr_id",m.last_name "manager" from employees e join employees m on (e.manager_id=m.employee_id);
+6)select department_name,count(*) as "no of employees" from departments inner join employees e on employees.department_id=departments.department_id group by departments.department_id,department_name order by department_name;
+7)select employee_id,job_title,end_date-start_date days from job_history natural join jobs where department_id=90;
+8)select d.department_id,d.department_name,d.manager_id,e.first_name from departments d inner join employees e on ( d.manager_id=e.employee_id);
+9)select d.department_name,e.first_name,l.city from departments d join employees e on (d.manager_id=e.employee.id) join locations l using(location_id);
+10)select job_title,avg(salary) from employees natural join jobs group by job_title;
+11)select job_title,first_name,salary-min_salary "salary-min_salary" from employees natural join jobs;
+12)select jh. * from job_history jh join employee e on(jh.employee_id=e.employee_id) where salary>10000;
+
+
+index and views
+mysql> create index i1 on emp4(eid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index i1 on emp4(eid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i1 on emp4(eid)' at line 1
+mysql> show index from emp4\g;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| emp4  |          1 | i1       |            1 | eid         | A         |           0 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.01 sec)
+
+ERROR:
+No query specified
+
+mysql> drop index i1 on emp4;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from emp4\g;
+Empty set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> desc e1;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| eid   | int(11) | NO   | PRI | NULL    |       |
++-------+---------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+
+mysql> show index from e1\g;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| e1    |          0 | PRIMARY  |            1 | eid         | A         |           2 |     NULL | NULL   |      | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from faculty;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    4 | priya  | phd           |      2 |
+|    5 | ravi   | phd           |      3 |
+|    6 | aarti  | m.tech        |      2 |
++------+--------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+--------+--------+-------+
+| sid  | sname  | branch | marks |
++------+--------+--------+-------+
+|    1 | lalit  | it     |    75 |
+|    2 | mahesh | it     |    90 |
+|    3 | sagar  | cse    |    92 |
+|    4 | arun   | cse    |    45 |
+|    5 | shikha | ece    |    56 |
+|    6 | nand   | ece    |    78 |
+|    7 | parul  | it     |    82 |
++------+--------+--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> Views;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Views' at line 1
+mysql> creat view view1 as select * from student where branch in("IT","CSE");\
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat view view1 as select * from student where branch in("IT","CSE")' at line 1
+mysql> creat view view1 as select * from student where branch in("IT","CSE");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat view view1 as select * from student where branch in("IT","CSE")' at line 1
+mysql> creatE view view1 as select * from student where branch in("IT","CSE");
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM VIEW1;
++------+--------+--------+-------+
+| sid  | sname  | branch | marks |
++------+--------+--------+-------+
+|    1 | lalit  | it     |    75 |
+|    2 | mahesh | it     |    90 |
+|    3 | sagar  | cse    |    92 |
+|    4 | arun   | cse    |    45 |
+|    7 | parul  | it     |    82 |
++------+--------+--------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from faculty;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    4 | priya  | phd           |      2 |
+|    5 | ravi   | phd           |      3 |
+|    6 | aarti  | m.tech        |      2 |
++------+--------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from department;
++--------+-------------+
+| deptid | deptname    |
++--------+-------------+
+|      1 | it          |
+|      2 | cse         |
+|      3 | ece         |
+|      4 | EEE         |
+|      5 | applied_sci |
+|      6 | commerce    |
++--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> create view view2 as select f.fname,d.deptname from faculty f inner join departemnt d
+    -> create view view2 as select f.fname,d.deptname from faculty f inner join departemnt d ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create view view2 as select f.fname,d.deptname from faculty f inner join departe' at line 2
+mysql> create view view2 as select f.fname,d.deptname from faculty f,department where f.deptid=d.deptid;
+ERROR 1054 (42S22): Unknown column 'd.deptname' in 'field list'
+mysql> create view view2 as select f.fname,d.deptname from faculty f,department d where f.deptid=d.deptid;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from viw2;
+ERROR 1146 (42S02): Table 'college.viw2' doesn't exist
+mysql> select * from view2;
++--------+----------+
+| fname  | deptname |
++--------+----------+
+| AMAN   | it       |
+| mohan  | it       |
+| vishal | it       |
+| priya  | cse      |
+| aarti  | cse      |
+| ravi   | ece      |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select avg(marks)from student;
++------------+
+| avg(marks) |
++------------+
+|    74.0000 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> create view view3 as select sname,marks from student where marks>(select avg(marks) from student);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from view3;
++--------+-------+
+| sname  | marks |
++--------+-------+
+| lalit  |    75 |
+| mahesh |    90 |
+| sagar  |    92 |
+| nand   |    78 |
+| parul  |    82 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * FROM STUDENT;
++------+--------+--------+-------+
+| sid  | sname  | branch | marks |
++------+--------+--------+-------+
+|    1 | lalit  | it     |    75 |
+|    2 | mahesh | it     |    90 |
+|    3 | sagar  | cse    |    92 |
+|    4 | arun   | cse    |    45 |
+|    5 | shikha | ece    |    56 |
+|    6 | nand   | ece    |    78 |
+|    7 | parul  | it     |    82 |
++------+--------+--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into student values(8,"atish","mcom",91);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from view 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3' at line 1
+mysql> select * from view3;
++--------+-------+
+| sname  | marks |
++--------+-------+
+| mahesh |    90 |
+| sagar  |    92 |
+| nand   |    78 |
+| parul  |    82 |
+| atish  |    91 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> updatabel view;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'updatabel view' at line 1
+mysql> select * from faculty;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    4 | priya  | phd           |      2 |
+|    5 | ravi   | phd           |      3 |
+|    6 | aarti  | m.tech        |      2 |
++------+--------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create view view4 as select * from faculty where deptid in(1,2);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from view4;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    4 | priya  | phd           |      2 |
+|    6 | aarti  | m.tech        |      2 |
++------+--------+---------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into view4 values("7","vishakha","phd",2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into view4 values("8","prachi","phd",3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from faculty;
++------+----------+---------------+--------+
+| fid  | fname    | qualification | deptid |
++------+----------+---------------+--------+
+|    1 | AMAN     | B.TECH        |      1 |
+|    2 | mohan    | m.TECH        |      1 |
+|    3 | vishal   | m.TECH        |      1 |
+|    4 | priya    | phd           |      2 |
+|    5 | ravi     | phd           |      3 |
+|    6 | aarti    | m.tech        |      2 |
+|    7 | vishakha | phd           |      2 |
+|    8 | prachi   | phd           |      3 |
++------+----------+---------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from view4;
++------+----------+---------------+--------+
+| fid  | fname    | qualification | deptid |
++------+----------+---------------+--------+
+|    1 | AMAN     | B.TECH        |      1 |
+|    2 | mohan    | m.TECH        |      1 |
+|    3 | vishal   | m.TECH        |      1 |
+|    4 | priya    | phd           |      2 |
+|    6 | aarti    | m.tech        |      2 |
+|    7 | vishakha | phd           |      2 |
++------+----------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from view4 where fid=7;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from faculty;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    4 | priya  | phd           |      2 |
+|    5 | ravi   | phd           |      3 |
+|    6 | aarti  | m.tech        |      2 |
+|    8 | prachi | phd           |      3 |
++------+--------+---------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> update faculty set deptid=3 where fname="priya";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from view4;
++------+--------+---------------+--------+
+| fid  | fname  | qualification | deptid |
++------+--------+---------------+--------+
+|    1 | AMAN   | B.TECH        |      1 |
+|    2 | mohan  | m.TECH        |      1 |
+|    3 | vishal | m.TECH        |      1 |
+|    6 | aarti  | m.tech        |      2 |
++------+--------+---------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> check option;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'option' at line 1
+mysql> create table view5 as select * from department where deptid=1;
+Query OK, 1 row affected (0.02 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from view5;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      1 | it       |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into view5(10,"maths");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10,"maths")' at line 1
+mysql> insert into view5 values(10,"maths");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from view5;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      1 | it       |
+|     10 | maths    |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from department;
++--------+-------------+
+| deptid | deptname    |
++--------+-------------+
+|      1 | it          |
+|      2 | cse         |
+|      3 | ece         |
+|      4 | EEE         |
+|      5 | applied_sci |
+|      6 | commerce    |
++--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> create table view6 as select * from department where deptid=1 with check option;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check option' at line 1
+mysql> create view view6 as select * from department where deptid=1 with check option;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from view6;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      1 | it       |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into view 6 values("11","eng");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '6 values("11","eng")' at line 1
+mysql> insert into view6 values("11","eng");
+ERROR 1369 (HY000): CHECK OPTION failed 'college.view6'
+mysql> with chcek option use kiya to view ko update nhi kr sakte;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'chcek option use kiya to view ko update nhi kr sakte' at line 1
+mysql> manage views;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'manage views' at line 1
+mysql> show create view view6\g
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| View  | Create View                                                                                                                                                                                                                                              | character_set_client | collation_connection |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+| view6 | CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view6` AS select `department`.`deptid` AS `deptid`,`department`.`deptname` AS `deptname` from `department` where (`department`.`deptid` = 1) WITH CASCADED CHECK OPTION | utf8                 | utf8_general_ci      |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+
+1 row in set (0.01 sec)
+
+mysql> alter view view6 as select * from department where deptid=2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop view view6;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show create view view6\g;
+ERROR 1146 (42S02): Table 'college.view6' doesn't exist
+ERROR:
+No query specified
+
