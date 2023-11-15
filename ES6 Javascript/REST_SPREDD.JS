@@ -13,6 +13,7 @@
 // };
 // sum(1,2,3,4,5,7,8,9);
 
+
 //REST OPERATOR
 /*function addNumber(a,b,c,...other)
 {
@@ -30,9 +31,8 @@ console.log(res);*/
  getNames(names[0],names[1],names[2]);*/
 
 
-
 //object ke sath- rest
-var students = {
+/*var students = {
     name: "sajid",
     age: "28",
     hobbies: ["cricket", "singing"]
@@ -46,4 +46,4 @@ var newStudent={
     ...students,
     age:29
 }
-console.log(newStudent);
+console.log(newStudent);*/

@@ -11,29 +11,48 @@ var button = document.querySelector("button");
  button.addEventListener("click",()=>{
      console.log("button");
  })*/
-
+ 
+ 
 //Event Capturing ((data propogates parent to child..))
-/*div.addEventListener("click",()=>{
-    console.log("div");
-},true)
-button.addEventListe/ner("click",()=>{
-    console.log("button");
-},true)*/
+// div.addEventListener("click",()=>{
+//     console.log("div");
+// },true)
+// button.addEventListener("click",()=>{
+//     console.log("button");
+// },true)
+
+
 
 //stop propagation
-/*div.addEventListener("click",()=>{
+div.addEventListener("click",()=>{
+    
     console.log("div");
 })
 button.addEventListener("click",(event)=>{
     event.stopPropagation();
     console.log("button");
-}) *///output is button
+}) //output is button
 
 //immediate propagation:event.stopImmediatePropagation();
 //preventDefault:prevent default behavior of browser
-var a =document.querySelector("a");
-a.addEventListener("click",(event)=>{
-     event.preventDefault();
-    console.log("button");
-})
+// var a =document.querySelector("a");
+// a.addEventListener("click",(event)=>{
+//      event.preventDefault();
+//     console.log("button");
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

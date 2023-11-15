@@ -78,7 +78,7 @@ c += 2;
 // Comparison Operators
 //var x = 34;
 //var y = 56;
-//console.log(x === y);
+//console.log(x == y);
 // console.log(x >= y);
 // console.log(x <= y);
 // console.log(x > y);
@@ -87,7 +87,7 @@ c += 2;
 // Logical Operators
 
 // Logical and
-//  console.log(true && true)
+// console.log(true && true)
 // console.log(true && false)
 // console.log(false && true)
 // console.log(false && false)
@@ -156,6 +156,10 @@ console.log("End of ladder");
 //     console.log(arr[i])
 // }
 
+// arr.forEach(function(element){
+//     console.log(element);
+// })
+
 
 
 
@@ -167,52 +171,51 @@ let myArr = ["Fan", "Camera", 34, null, true];
 // myArr.shift()//first element remove 
 //   const newLen = myArr.unshift("Harry")
 //   console.log(newLen);//firs element added
-  //console.log(myArr);
+//console.log(myArr);
+
 
 // String Methods in JavaScript
- let myLovelyString = "suresh is a good boy good good Harry";
+let myLovelyString = "suresh is a good boy good good Harry";
 // console.log(myLovelyString.length)
 // console.log(myLovelyString.indexOf("good"))
 // console.log(myLovelyString.lastIndexOf("good"))
 
- //console.log(myLovelyString.slice(1,8))//arr(start ,n-1)//uresh i
- //d = myLovelyString.replace("Harry", "Rohan");
-   // d = d.replace("good", "bad");
+//console.log(myLovelyString.slice(1,8))//arr(start ,n-1)//uresh i
+//d = myLovelyString.replace("Harry", "Rohan");
+// d = d.replace("good", "bad");
 // console.log(d, myLovelyString)
 
 let myDate = new Date();
 //console.log(myDate.getTime());
-// console.log(myDate.getFullYear());
+//console.log(myDate.getFullYear());
 //console.log(myDate.getDay());
-// console.log(myDate.getMinutes());
-// console.log(myDate.getHours());
-// console.log(myDate);
+//console.log(myDate.getMinutes());
+//console.log(myDate.getHours());
+//console.log(myDate);
 
 // DOM Manipulation
 let elem = document.getElementById('click');
-//console.log(elem);
+console.log(elem);
 
 let elemClass = document.getElementsByClassName("container")
 //console.log(elemClass);
-// elemClass[1].style.background = "orange";
+ elemClass[1].style.background = "orange";
 // elemClass[0].classList.add("bg-primary");
-//elemClass[0].classList.add("text-success")
+//elemClass[0].classList.add("text-success");
 //console.log(elem.innerHTML);
 //console.log(elem.innerText);
 
 //console.log(elemClass[0].innerHTML);
 //console.log(elemClass[0].innerText);
-  tn = document.getElementsByTagName('div')
-  console.log(tn)
-// createdElement = document.createElement('p');
-// createdElement.innerText = "This is a created para1";
-// tn[0].appendChild(createdElement);
-//  createdElement2 = document.createElement('b');
-//  createdElement2.innerText = "This is a created bold";
-//  tn[0].replaceChild(createdElement2, createdElement);
+ tn = document.getElementsByTagName('div')
+// console.log(tn)
+//  createdElement = document.createElement('p');
+//  createdElement.innerText = "This is a created para1";
+//  tn[0].appendChild(createdElement);
+//   createdElement2 = document.createElement('b');
+//   createdElement2.innerText = "This is a created bold";
+//    tn[0].replaceChild(createdElement2, createdElement);
 // removeChild(element); ---> removes an element
-
-
 
 
 // Selecting using Query
@@ -264,13 +267,13 @@ let elemClass = document.getElementsByClassName("container")
 //     return a + b;
 // }
 
-// logKaro = () => {
-//     document.querySelectorAll('.container')[1].innerHTML = "<b> Set interval fired</b>"
-//     console.log("I am your log")
-//}
+logKaro = () => {
+    document.querySelectorAll('.container')[1].innerHTML = "<b> Set interval fired</b>"
+    console.log("I am your log")
+}
 // SetTimeout and setinterval
-// clr = setTimeout(logKaro, 5000);
-// clr = setInterval(logKaro, 2000);
+// clr = setTimeout(logKaro, 1000);
+ //clr = setInterval(logKaro, 2000);
 // use clearInterval(clr)/clearTimeout(clr) to cancel setInterval/setTimeout
 
 // JavaScript localStorage
